@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -20,6 +21,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import hu.feketendras.splendex.movies.R;
 import hu.feketendras.splendex.movies.di.AppComponent;
+import hu.feketendras.splendex.movies.network.ApiError;
 import hu.feketendras.splendex.movies.network.Movie;
 import hu.feketendras.splendex.movies.ui.base.BaseFragment;
 
@@ -44,7 +46,8 @@ public class MovieListFragment extends BaseFragment {
     public void injectDependencies(AppComponent injector) {
         injector.inject(this);
         viewModel = ViewModelProviders.of(this, viewModelProviderFactory).get(MovieListViewModel.class);
-        viewModel.getMovieListLiveData().observe(this, movies -> displayMovieList(movies));
+        viewModel.getMovieListLiveData().observe(this, movies -> handleMovieListResult(movies));
+        viewModel.getMovieListErrorLiveData().observe(this, apiError -> handleMovieListError(apiError));
     }
 
     @Nullable
@@ -65,7 +68,13 @@ public class MovieListFragment extends BaseFragment {
         viewModel.getMovieList();
     }
 
-    private void displayMovieList(List<Movie> movies) {
+    private void handleMovieListResult(List<Movie> movies) {
         adapter.updateItems(movies);
     }
+
+    private void handleMovieListError(ApiError apiError) {
+        // TODO: handle error properly
+        Toast.makeText(getContext(), R.string.error_general, Toast.LENGTH_SHORT).show();
+    }
+
 }

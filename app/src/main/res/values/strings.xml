@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Splendex Movies</string>
+    <string name="error_general">Something bad happened, please try again later</string>
 </resources>

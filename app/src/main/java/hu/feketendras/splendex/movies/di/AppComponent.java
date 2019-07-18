@@ -9,7 +9,7 @@ import dagger.Component;
 import hu.feketendras.splendex.movies.ui.movielist.MovieListFragment;
 
 @Singleton
-@Component(modules = {ApiModule.class, ViewModelModule.class})
+@Component(modules = {ConfigModule.class, ApiModule.class, ViewModelModule.class})
 public interface AppComponent {
 
     void inject(MovieListFragment movieListFragment);

@@ -1,8 +1,11 @@
 package hu.feketendras.splendex.movies.network;
 
-import java.util.List;
+import retrofit2.Call;
+import retrofit2.http.GET;
+import retrofit2.http.Query;
 
 public interface MoviesApi {
 
-    List<Movie> getMovies();
+    @GET("search/movie")
+    Call<MovieSearchResponse> getMovies(@Query("query") String query, @Query("api_key") String apiKey);
 }
