@@ -3,6 +3,14 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <EditText
+        android:id="@+id/MovieListQueryEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/default_padding"
+        android:lines="1"
+        android:hint="@string/search"/>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/MovieListRecyclerView"
         android:layout_width="match_parent"

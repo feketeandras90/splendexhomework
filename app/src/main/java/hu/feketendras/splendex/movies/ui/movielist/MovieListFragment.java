@@ -11,7 +11,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -19,6 +22,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnTextChanged;
 import hu.feketendras.splendex.movies.R;
 import hu.feketendras.splendex.movies.di.AppComponent;
 import hu.feketendras.splendex.movies.network.ApiError;
@@ -35,6 +39,9 @@ public class MovieListFragment extends BaseFragment {
 
     @Inject
     protected ViewModelProvider.Factory viewModelProviderFactory;
+
+    @BindView(R.id.MovieListQueryEditText)
+    protected EditText queryEditText;
 
     @BindView(R.id.MovieListRecyclerView)
     protected RecyclerView recyclerView;
@@ -55,7 +62,7 @@ public class MovieListFragment extends BaseFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_movie_list, container, false);
         ButterKnife.bind(this, view);
-        adapter = new MoviesListAdapter(inflater);
+        adapter = new MoviesListAdapter(Picasso.get(), inflater);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
         recyclerView.setAdapter(adapter);
@@ -65,7 +72,13 @@ public class MovieListFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        viewModel.getMovieList();
+    }
+
+    @OnTextChanged(R.id.MovieListQueryEditText)
+    public void onQueryChanged(CharSequence query) {
+        if (query.length() > 0) {
+            viewModel.getMovieList(query.toString());
+        }
     }
 
     private void handleMovieListResult(List<Movie> movies) {

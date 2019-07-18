@@ -1,15 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:gravity="center_vertical"
     style="@style/ListItem">
+
+    <ImageView
+        android:id="@+id/MovieItemPoster"
+        android:layout_width="64dp"
+        android:layout_height="64dp" />
 
     <TextView
         android:id="@+id/MovieItemTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/half_padding"
+        android:textSize="18sp"
         tools:text="Superman"/>
 
 </LinearLayout>

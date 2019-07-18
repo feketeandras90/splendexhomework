@@ -42,8 +42,8 @@ public class MovieListViewModel extends ViewModel {
         return movieListErrorLiveData;
     }
 
-    public void getMovieList() {
-        api.getMovies("a", apiKey).enqueue(new Callback<MovieSearchResponse>() {
+    public void getMovieList(String query) {
+        api.getMovies(query, apiKey).enqueue(new Callback<MovieSearchResponse>() {
             @Override
             public void onResponse(Call<MovieSearchResponse> call, Response<MovieSearchResponse> response) {
                 if (response.isSuccessful()) {
