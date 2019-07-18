@@ -16,12 +16,32 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation "com.android.support:appcompat-v7:$versions.appcompat"
+    implementation "com.android.support:recyclerview-v7:$versions.appcompat"
+    implementation "com.android.support:design:$versions.appcompat"
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    // Dagger
+    implementation 'com.google.dagger:dagger-android:' + rootProject.versions.dagger
+    implementation 'com.google.dagger:dagger-android-support:' + rootProject.versions.dagger
+    // if you use the support libraries
+    annotationProcessor 'com.google.dagger:dagger-compiler:' + rootProject.versions.dagger
+    annotationProcessor 'com.google.dagger:dagger-android-processor:' + rootProject.versions.dagger
+    // Butterknife
+    api 'com.jakewharton:butterknife:' + rootProject.versions.butterknife
+    annotationProcessor 'com.jakewharton:butterknife-compiler:' + rootProject.versions.butterknife
+    implementation "android.arch.lifecycle:extensions:$versions.arch"
+    implementation "android.arch.persistence.room:runtime:$versions.arch"
+    annotationProcessor "android.arch.persistence.room:compiler:$versions.arch"
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
