@@ -2,10 +2,28 @@ package hu.feketendras.splendex.movies.network;
 
 public class Movie {
 
+    private int id;
+    private int budget;
     private String title;
     private String poster_path;
 
     public Movie() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getBudget() {
+        return budget;
+    }
+
+    public void setBudget(int budget) {
+        this.budget = budget;
     }
 
     public String getTitle() {

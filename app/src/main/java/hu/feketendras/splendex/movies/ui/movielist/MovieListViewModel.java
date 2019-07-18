@@ -72,4 +72,28 @@ public class MovieListViewModel extends ViewModel {
             }
         });
     }
+
+    public void getMovieDetails(int movieId) {
+        api.getMovieDetials(movieId, apiKey).enqueue(new Callback<Movie>() {
+            @Override
+            public void onResponse(Call<Movie> call, Response<Movie> response) {
+                if (response.isSuccessful()) {
+                    Movie movieDetailed = response.body();
+                    List<Movie> value = movieListLiveData.getValue();
+                    for (Movie movie : value) {
+                        if (movie.getId() == movieDetailed.getId()) {
+                            movie.setBudget(movieDetailed.getBudget());
+                            break;
+                        }
+                    }
+                    movieListLiveData.postValue(value);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Movie> call, Throwable t) {
+
+            }
+        });
+    }
 }
